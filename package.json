@@ -8,7 +8,8 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
+  "description": "API server for Snaps project",
+  "type": "module",
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",

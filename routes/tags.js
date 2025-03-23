@@ -1,17 +1,26 @@
-const express = require('express');
-const fs = require('fs-extra');
-const path = require('path');
+import express from "express";
+import fs from "fs/promises";
+import { fileURLToPath } from "url";
+import { dirname, join } from "path";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 const router = express.Router();
 
 // GET all tags
-router.get('/', async (req, res) => {
+router.get("/", async (req, res) => {
   try {
-    const tags = await fs.readJSON(path.join(__dirname, '../data/tags.json'));
+    const data = await fs.readFile(
+      join(__dirname, "../data/tags.json"),
+      "utf8"
+    );
+    const tags = JSON.parse(data);
     res.json(tags);
   } catch (error) {
-    console.error('Error fetching tags:', error);
-    res.status(500).json({ error: 'Failed to fetch tags' });
+    console.error("Error fetching tags:", error);
+    res.status(500).json({ error: "Failed to fetch tags" });
   }
 });
 
-module.exports = router;
+export default router;

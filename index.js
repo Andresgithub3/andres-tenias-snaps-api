@@ -1,11 +1,13 @@
-const express = require('express');
-const cors = require('cors');
-const path = require('path');
-require('dotenv').config();
+import 'dotenv/config'; 
+import express from 'express';
+import cors from 'cors';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
+import photosRoutes from './routes/photos.js';
+import tagsRoutes from './routes/tags.js';
 
-// Import routes
-const photosRoutes = require('./routes/photos');
-const tagsRoutes = require('./routes/tags');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const app = express();
 
@@ -14,7 +16,7 @@ app.use(cors());
 app.use(express.json());
 
 // Serve static files
-app.use('/images', express.static(path.join(__dirname, 'public/images')));
+app.use('/images', express.static(join(__dirname, 'public/images')));
 
 // Use routes
 app.use('/photos', photosRoutes);
